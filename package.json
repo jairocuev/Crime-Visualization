@@ -1,0 +1,33 @@
+{
+  "name": "crime-visualization",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "client": "npm run start --prefix client",
+    "server": "nodemon app.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jairocuev/Crime-Visualization.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jairocuev/Crime-Visualization/issues"
+  },
+  "homepage": "https://github.com/jairocuev/Crime-Visualization#readme",
+  "dependencies": {
+    "@google-cloud/firestore": "^6.5.0",
+    "concurrently": "^7.6.0",
+    "create-react-app": "^5.0.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
