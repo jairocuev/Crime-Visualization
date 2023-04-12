@@ -17,4 +17,5 @@ getCrimes().then((a)=> {
   a.forEach((b)=>console.log(b.data()))
     });
 
+
 app.listen(5000, ()=> {console.log("server is running on 5000")});

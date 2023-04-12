@@ -25,7 +25,8 @@
     "create-react-app": "^5.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "firebase-admin": "^11.5.0"
+    "firebase-admin": "^11.5.0",
+    "mapbox-gl": "^1.13.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.21"

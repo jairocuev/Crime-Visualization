@@ -1,0 +1,10 @@
+.mapboxgl-map{
+
+  border: 4px solid yellow;
+  width:  50vw;
+  height: 50vh;
+
+} 
+.ClusterCrimeMarker img{
+ width: 25px;
+}
