@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Clustering } from './Clustering'
 import { CrimeMap } from './CrimeMap'
 import { HeatMap } from './HeatMap'
+import { CrimeCharts } from './CrimeCharts'
 
 export const Home = () => {
   const [mapType, setMapType]=useState("pin")
@@ -34,6 +35,7 @@ export const Home = () => {
     {
       getMap(mapType)
     }
+    <CrimeCharts/>
 
     </div>
   )
