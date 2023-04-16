@@ -1,0 +1,19 @@
+.report{
+    color: black;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    grid-column: 2;
+    border-radius: 1vw;
+    padding: 1vh;
+
+    input{
+        margin: 1vh;
+    }
+}
+
+.reportContainer{
+    display: grid;
+    grid-template-columns: 35% 30% 35%;
+}

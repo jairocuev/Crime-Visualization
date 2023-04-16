@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
+import React,{ useState, useEffect } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './NavCss/CrimeMap.css';
 import Map, { Marker, Popup } from 'react-map-gl';
 import { getGeoJson } from '../utils/helpers';
 
 export const CrimeMap = () => {
-  const token = process.env.REACT_APP_MAPBOX_TOKEN;
+  const token = import.meta.env.VITE_APP_MAPBOX_TOKEN;
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
 
   const [popupInfo, setPopupInfo] = useState(null);
 
@@ -15,13 +17,14 @@ export const CrimeMap = () => {
       const response = await getGeoJson();
       setData(response);
     }
-
+    setLoading(true);
     fetchData();
+    setLoading(false)
   }, []);
 
   return (
     <div>
-      <Map
+      {!loading ? <Map
         initialViewState={{
           latitude: 33.753746,
           longitude: -84.38633,
@@ -41,7 +44,6 @@ export const CrimeMap = () => {
               onClick={(e) => {
                 e.originalEvent.stopPropagation();
                 setPopupInfo(crime);
-                console.log(crime);
               }}
             />
           ))
@@ -67,7 +69,7 @@ export const CrimeMap = () => {
             </div>
           </Popup>
         )}
-      </Map>
+      </Map> : <>Loading...</>}
     </div>
   );
 };

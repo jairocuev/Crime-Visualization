@@ -60,7 +60,7 @@ const heatmapLayer = {
 };
 
 export const HeatMap = () => {
-  const token = process.env.REACT_APP_MAPBOX_TOKEN;
+  const token = import.meta.env.VITE_APP_MAPBOX_TOKEN;
   const [data, setData] = useState(null);
 
   useEffect(() => {

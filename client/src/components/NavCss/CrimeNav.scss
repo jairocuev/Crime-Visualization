@@ -1,0 +1,32 @@
+nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  padding: 0 2rem;
+  background-color: black;
+  margin-bottom: 2vh;
+}
+
+
+.link{
+  color: white;
+  margin: 1vw;
+  border: 1px solid black;
+  padding: .5vw;
+}
+
+
+.NavLogo{
+    display: flex;
+    align-content: center;
+  h1{
+    margin-left: 1vw;
+    align-self: center;
+    justify-self: center;
+  }
+  img{
+    max-height: 8vh;
+    max-width: 8vw;
+  } 
+}

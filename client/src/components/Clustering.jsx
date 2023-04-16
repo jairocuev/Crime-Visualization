@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './NavCss/CrimeMap.css';
 import { Map, Source, Layer } from 'react-map-gl';
@@ -13,7 +13,7 @@ const initialState = {
 };
 
 export const Clustering = () => {
-  const token = process.env.REACT_APP_MAPBOX_TOKEN;
+  const token = import.meta.env.VITE_APP_MAPBOX_TOKEN;
   const clusterLayer = {
     id: 'clusters',
     type: 'circle',
