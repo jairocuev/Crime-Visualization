@@ -9,7 +9,6 @@
     "server": "nodemon app.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build-client":"npm run build --prefix client"
-
   },
   
   "repository": {
