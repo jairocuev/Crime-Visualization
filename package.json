@@ -8,7 +8,8 @@
     "client": "npm run dev --prefix client",
     "server": "nodemon app.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build-client": "npm run build --prefix client"
+    "build-client": "npm run build --prefix client",
+    "build-prisma": "npx prisma generate"
   },
   "repository": {
     "type": "git",
