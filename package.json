@@ -8,9 +8,8 @@
     "client": "npm run dev --prefix client",
     "server": "nodemon app.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build-client":"npm run build --prefix client"
+    "build-client": "npm run build --prefix client"
   },
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jairocuev/Crime-Visualization.git"
@@ -34,6 +33,7 @@
     "jsonwebtoken": "^9.0.0",
     "mapbox-gl": "^1.13.3",
     "react": "^18.2.0",
+    "serve": "^14.2.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
