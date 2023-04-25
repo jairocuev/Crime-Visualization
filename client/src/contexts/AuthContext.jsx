@@ -71,10 +71,12 @@ export function AuthProvider({ children }) {
     )[0];
     if (local) {
       const user = JSON.parse(window.sessionStorage.getItem(local));
+     if(!user.role){
       getUser(user.uid).then((u) => {
         user.role = u.role;
         setCurrentUser(user);
       });
+     }
     }
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
