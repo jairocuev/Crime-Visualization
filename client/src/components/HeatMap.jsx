@@ -3,6 +3,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import './NavCss/CrimeMap.css';
 import MapGL, { Source, Layer } from 'react-map-gl';
 import { getGeoJson } from '../utils/helpers';
+import { getAllReportsGeoJSON } from '../api';
 
 const MAX_ZOOM_LEVEL = 15;
 
@@ -65,7 +66,7 @@ export const HeatMap = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await getGeoJson();
+      const response = await getAllReportsGeoJSON();
       setData(response);
     }
 
@@ -80,7 +81,7 @@ export const HeatMap = () => {
           longitude: -84.38633,
           zoom: 10,
         }}
-        style={{ width: 800, height: 600 }}
+        style={{ width: '99%', height: '50vh', textAlign: 'center' }}
         mapStyle="mapbox://styles/jccuev/clg31mlr2002m01qorq6w62aq"
         mapboxAccessToken={token}
       >

@@ -1,0 +1,11 @@
+.adminContainer{
+    min-height: 80vh;
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    gap: 1vh;
+}
+.MuiDataGrid-root{
+    grid-column: 2;
+    background: white;
+    min-height: 80vh;
+}

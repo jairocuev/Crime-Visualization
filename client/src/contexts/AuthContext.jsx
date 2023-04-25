@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import firebase, { db } from '../firebase';
+import firebase from '../firebase';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  browserSessionPersistence 
+  browserSessionPersistence,
 } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { addUser, getUser } from '../api';
 
 const AuthContext = React.createContext();
 
@@ -19,7 +19,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const auth = getAuth(firebase);
-  auth.setPersistence(browserSessionPersistence)
+  auth.setPersistence(browserSessionPersistence);
   let navigate = useNavigate();
 
   const [currentUser, setCurrentUser] = useState();
@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password)
       .then(async (cred) => {
-        await setDoc(doc(db, 'users', cred.user.uid), { role: 'User' });
+        await addUser({ uid: cred.user.uid });
         navigate('/');
         setLoading(false);
       })
@@ -46,7 +46,10 @@ export function AuthProvider({ children }) {
         navigate('/');
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((e) => {
+        setLoading(false);
+        throw new Error(e);
+      });
   }
 
   function logout() {
@@ -63,19 +66,27 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth,(user) => {
+    const local = Object.keys(window.sessionStorage).filter((item) =>
+      item.startsWith('firebase:authUser')
+    )[0];
+    if (local) {
+      const user = JSON.parse(window.sessionStorage.getItem(local));
+      getUser(user.uid).then((u) => {
+        user.role = u.role;
         setCurrentUser(user);
-      let docRef = null;
+      });
+    }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
       if (user) {
-        docRef = doc(db, 'users', user.uid);
-        getDoc(docRef).then((data) => {
-          user.role = data.data()?.role;
+        getUser(user.uid).then((u) => {
+          user.role = u.role;
           setCurrentUser(user);
         });
       }
     });
     return unsubscribe;
-  }, []);
+  }, [currentUser]);
 
   const value = { currentUser, login, signup, logout, loading };
 

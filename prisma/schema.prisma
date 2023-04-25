@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model crime {
+  id           Int      @id @default(autoincrement())
+  codename     String   @db.VarChar(255)
+  location     Json
+  locationtype String   @db.VarChar(255)
+  reportdate   DateTime @db.Timestamptz(6)
+  reportedby   String   @db.VarChar(255)
+  status       String   @db.VarChar(255)
+}
+
+model user {
+  id   Int    @id @default(autoincrement())
+  uid  String @db.VarChar(255)
+  role String @db.VarChar(255)
+}

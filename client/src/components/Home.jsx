@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Clustering } from './Clustering';
 import { CrimeMap } from './CrimeMap';
 import { HeatMap } from './HeatMap';
 import { CrimeCharts } from './CrimeCharts';
 import './Home.scss';
+import { CrimePie } from './CrimePie';
+import { getAllReports } from '../api';
+import { Button } from '@mui/material';
 
 export const Home = () => {
   const [mapType, setMapType] = useState('pin');
+
+  const [chartData, setChartData] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getAllReports();
+      setChartData(response);
+    }
+    fetchData();
+  }, []);
+
   function getMap(type) {
     switch (type) {
       case 'pin':
@@ -21,31 +35,37 @@ export const Home = () => {
   }
   return (
     <div className="homeContainer">
-      <button
-        onClick={() => {
-          setMapType('pin');
-        }}
-      >
-        Pin Map
-      </button>
-      <button
-        onClick={() => {
-          setMapType('Heat Map');
-        }}
-      >
-        Heat Map
-      </button>
-      <button
-        onClick={() => {
-          setMapType('Clustering');
-        }}
-      >
-        Clustering
-      </button>
+      <div className="homeButtons">
+        <Button
+          variant="contained"
+          onClick={() => {
+            setMapType('pin');
+          }}
+        >
+          Pin Map
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => {
+            setMapType('Heat Map');
+          }}
+        >
+          Heat Map
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => {
+            setMapType('Clustering');
+          }}
+        >
+          Clustering
+        </Button>
+      </div>
       <div className="homeContent">
-        {getMap(mapType)}
+        <div className="map">{getMap(mapType)}</div>
 
-        <CrimeCharts />
+        {chartData ? <CrimeCharts chartData={chartData} /> : <></>}
+        {chartData ? <CrimePie chartData={chartData} /> : <></>}
       </div>
     </div>
   );
