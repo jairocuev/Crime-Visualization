@@ -40,7 +40,7 @@ router.get('/getall', async (req, res) => {
     if (req.query.type == 'geojson') {
       return res.send({
         type: 'FeatureCollection',
-        features: data.map((i) => ({
+        features: data?.map((i) => ({
           type: 'Feature',
           id: i.id,
           properties: {
@@ -71,7 +71,7 @@ router.get('/topgetall', async (req, res) => {
     if (req.query.type == 'geojson') {
       return res.send({
         type: 'FeatureCollection',
-        features: data.map((i) => ({
+        features: data?.map((i) => ({
           type: 'Feature',
           id: i.id,
           properties: {

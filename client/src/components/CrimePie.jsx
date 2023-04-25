@@ -6,7 +6,7 @@ ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 export function CrimePie({ chartData }) {
   function getLength(tag) {
-    const number = chartData.filter((x) => x.codename == tag).length;
+    const number = chartData?.filter((x) => x.codename == tag).length;
 
     return number;
   }

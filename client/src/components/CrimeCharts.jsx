@@ -15,7 +15,7 @@ export const CrimeCharts = ({ chartData }) => {
   const [loading, setLoading] = useState(false);
 
   function dataSetup(month) {
-    return chartData.filter(
+    return chartData?.filter(
       (item) => new Date(item.reportdate).getMonth() === month
     ).length;
   }

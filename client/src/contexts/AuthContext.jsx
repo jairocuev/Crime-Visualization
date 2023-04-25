@@ -66,7 +66,7 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    const local = Object.keys(window.sessionStorage).filter((item) =>
+    const local = Object.keys(window.sessionStorage)?.filter((item) =>
       item.startsWith('firebase:authUser')
     )[0];
     if (local) {

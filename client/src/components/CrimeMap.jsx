@@ -69,7 +69,7 @@ export const CrimeMap = () => {
           }}
         >
           {data ? (
-            data.map((crime, index) => (
+            data?.map((crime, index) => (
               <Marker
                 key={`marker-${crime.id}`}
                 longitude={crime.location.long}
