@@ -51,7 +51,7 @@ export const Report = () => {
     api.defaults.headers.common['Authorization'] = `Bearer ${jwt}`;
 
     addReport(crime, currentUser.uid).then(() => {
-      toast.success('Report(s) approved...', {
+      toast.success('Report(s) submited...', {
         position: 'bottom-right',
         autoClose: 5000,
         hideProgressBar: false,

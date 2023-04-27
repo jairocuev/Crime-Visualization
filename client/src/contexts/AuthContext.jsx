@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
   let navigate = useNavigate();
 
   const [currentUser, setCurrentUser] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   function signup(email, password) {
     setLoading(true);
@@ -42,9 +42,15 @@ export function AuthProvider({ children }) {
   function login(email, password) {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigate('/');
-        setLoading(false);
+      .then((user) => {
+        getUser(user.user.uid)
+          .then((u) => {
+            user.role = u.role;
+            setCurrentUser(user.user);
+            setLoading(false);
+            navigate('/');
+          })
+          .catch((e) => console.log(e));
       })
       .catch((e) => {
         setLoading(false);
@@ -66,25 +72,29 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    const local = Object.keys(window.sessionStorage)?.filter((item) =>
-      item.startsWith('firebase:authUser')
-    )[0];
-    if (local) {
-      const user = JSON.parse(window.sessionStorage.getItem(local));
-     if(!user.role){
-      getUser(user.uid).then((u) => {
-        user.role = u.role;
-        setCurrentUser(user);
-      });
-     }
-    }
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      if (user) {
-        getUser(user.uid).then((u) => {
-          user.role = u.role;
-          setCurrentUser(user);
+      if (user && !currentUser?.role) {
+        setCurrentUser(user, () => {
+          console.log(currentUser);
         });
+        console.log(currentUser);
+        if (currentUser.role == undefined) {
+          const local = Object.keys(window.sessionStorage)?.filter((item) =>
+            item.startsWith('firebase:authUser')
+          )[0];
+          if (local) {
+            const user = JSON.parse(window.sessionStorage.getItem(local));
+            if (!currentUser.role) {
+              getUser(currentUser.uid).then((u) => {
+                user.role = u.role;
+                setCurrentUser(user);
+                setLoading(false);
+              });
+            }
+          }
+        }
+      } else {
+        setLoading(false);
       }
     });
     return unsubscribe;
@@ -92,5 +102,9 @@ export function AuthProvider({ children }) {
 
   const value = { currentUser, login, signup, logout, loading };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 }
