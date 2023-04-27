@@ -96,7 +96,5 @@ export const AdminPage = () => {
     </div>
   );
 
-  // reports.map((r) => (
-  //   <>{r.codename}</>
-  // ))
+
 };
