@@ -48,9 +48,6 @@ function CrimeNav() {
           <></>
         )}
 
-        <Link to="/alerts" className="link">
-          Alerts
-        </Link>
 
         {currentUser && !loading ? (
           <>

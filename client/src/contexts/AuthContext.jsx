@@ -74,10 +74,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user && !currentUser?.role) {
-        setCurrentUser(user, () => {
-          console.log(currentUser);
-        });
-        console.log(currentUser);
+        setCurrentUser(user);
         if (currentUser.role == undefined) {
           const local = Object.keys(window.sessionStorage)?.filter((item) =>
             item.startsWith('firebase:authUser')
